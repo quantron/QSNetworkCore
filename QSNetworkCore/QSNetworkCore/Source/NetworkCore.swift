@@ -12,7 +12,8 @@ import Alamofire
 open class NetworkCore: NSObject {
     private let session: Session
     
-    init(sessionConfiguration: URLSessionConfiguration) {
+    public init(sessionConfiguration: URLSessionConfiguration) {
         self.session = Session(configuration: sessionConfiguration)
+        print("NetworkCore INITED")
     }
 }
