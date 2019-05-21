@@ -26,11 +26,13 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "https://github.com/quantron/QSNetworkCore.git", :tag => "#{spec.version}" }
 
-  spec.source_files  = "QSNetworkCore", "QSNetworkCore/**/*.{h,m,swift}"
+  spec.source_files  = 'QSNetworkCore/QSNetworkCore/Source/*.swift'
 
 
   spec.framework  = "UIKit"
   spec.dependency "Alamofire", '~> 5.0.0.beta.6'
+
+  spec.swift_version = "4.2"
 
   spec.requires_arc = true
 
