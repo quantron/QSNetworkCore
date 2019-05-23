@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
 
   spec.authors      = { "Evgeny Ivanov" => "ivanovean@gmail.com", "Yana Ivanova" => "suraeva.yana@gmail.com", "Artem Emelianov" => "tema.emelianov@gmail.com" }
 
-  spec.platform     = :ios, "10.0"
+  spec.platform     = :ios, "11.0"
 
   spec.source       = { :git => "https://github.com/quantron/QSNetworkCore.git", :tag => "#{spec.version}" }
 

@@ -3,17 +3,24 @@
 //  QSNetworkCore
 //
 //  Created by Ivanov Evgeniy on 21/05/2019.
-//  Copyright © 2019 Quantron Systems. All rights reserved.
-//
+// 
 
 import Foundation
 import Alamofire
 
-open class NetworkCore: NSObject {
-    private let session: Session
+open class NetworkCore {
+    public static var defaultConfiguration: NetworkCoreConfiguration?
     
-    public init(sessionConfiguration: URLSessionConfiguration) {
-        self.session = Session(configuration: sessionConfiguration)
-        print("NetworkCore INITED")
+    public static let `default` = NetworkCore(config: defaultConfiguration)
+    
+    public let configuration: NetworkCoreConfiguration?
+    
+    public init(config: NetworkCoreConfiguration) {
+        self.configuration = config
+    }
+    
+    private init(config: NetworkCoreConfiguration?) {
+        self.configuration = config
     }
 }
+
