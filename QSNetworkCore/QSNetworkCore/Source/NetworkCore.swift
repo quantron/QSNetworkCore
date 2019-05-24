@@ -9,18 +9,46 @@ import Foundation
 import Alamofire
 
 open class NetworkCore {
-    public static var defaultConfiguration: NetworkCoreConfiguration?
+    // setup deault instance for new config
+    public private(set) static var defaultConfiguration: NetworkCoreConfiguration? {
+        didSet(newDefaultConfig) {
+            guard let gNewDefaultConfig = newDefaultConfig else {
+                self.default.configuration = nil
+                self.default.baseURL = nil
+                self.default.session = nil
+                return
+            }
+            
+            self.default.configuration = gNewDefaultConfig
+            self.default.baseURL = gNewDefaultConfig.baseURL
+            
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.timeoutIntervalForRequest = gNewDefaultConfig.requestTimeout
+            sessionConfig.timeoutIntervalForResource = gNewDefaultConfig.resourceTimeout
+            self.default.session = CoreSession(configuration: sessionConfig)
+        }
+    }
     
-    public static let `default` = NetworkCore(config: defaultConfiguration)
+    public static let `default` = NetworkCore()
     
-    public let configuration: NetworkCoreConfiguration?
+    public private(set) var configuration: NetworkCoreConfiguration?
+    
+    private var session: CoreSession?
+    private var baseURL: URL?
     
     public init(config: NetworkCoreConfiguration) {
         self.configuration = config
+        
+        self.baseURL = config.baseURL
+        
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = config.requestTimeout
+        sessionConfig.timeoutIntervalForResource = config.resourceTimeout
+        self.session = CoreSession(configuration: sessionConfig)
     }
     
-    private init(config: NetworkCoreConfiguration?) {
-        self.configuration = config
-    }
+    private init() {}
+    
+    
 }
 
